@@ -14,10 +14,38 @@ file.close();
 
 2. ifstream - To read from a file: 
 
-ifstream file("foods.txt"); 
+ifstream file; 
+ifstream file("foods.txt"); OR file.open("foods.txt")
 string food; 
 file >> food; <-- Takes in food from the file 
 file.close(); 
+
+Types of Errors + how to handle them: 
+
+#include <fstream> 
+
+int main(){
+  ifstream file("myFile.txt");
+  int a, b;
+  file >> a >> b;
+  return 0; 
+}
+1. File doesnt exist:
+  input.fail() will be true 
+
+  ifstream file("myFile.txt");
+  if(file.fail()){
+  cerr << "Cannot open file" << endl; 
+  return 1; 
+  }
+2. Input type is incorrect 
+  cin.fail(), file.fail() will be true 
+
+  cin.clear(); <- Clears failure condition, makes cin.fail() false again 
+  cin.ignore(int n, char c); <- Discards n characters or up to character c 
+    Usually cin.ignore(1000, ' ') <- Ignores many characters or the space 
+3. Reached end of file
+  cin.eof() OR file.eof() will be true 
 
 Error Checking: cin 
 
@@ -88,3 +116,30 @@ setprecision(number) <- Controls decimal precision
 
 
 */
+
+int main(){
+  int sum = 0; 
+  int number = 0; 
+  ifstream file("myText.txt"); 
+  while(!file.eof()){
+    file >> number; 
+    if(file.fail()){
+      file.clear();
+      file.ignore(1000, '\n'); 
+    }
+    else 
+      sum += number; 
+  }
+}
+
+int main(){
+  int number = 0; 
+  cout << "Enter number"; 
+  cin >> number; 
+  while(cin.fail()){
+    cin.clear();
+    cin.ignore(1000, ' ');
+    cout << "Try again"; 
+    cin >> number; 
+  }
+}

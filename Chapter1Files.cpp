@@ -166,6 +166,7 @@ g++ -c main.cpp -o main.o
 g++ -c print.cpp -o print.o
 g++ -c input.cpp -o input.o 
 g++ main.o print.o input.o -o main (Compiles only the source files that have been changed)
+-c means compile only, dont link yet
 
 HEADER GUARDS (If a source file includes a header file multiple times):
 
@@ -181,12 +182,34 @@ EXAMPLE:
 
 #endif
 
+Creating pointer that points to pointer of array of ints 
+
+int** ptr = new int*[4]; 
+
+for(int i = 0; i < 4; i++){
+  ptr[i] = new int; 
+}
+for(int i = 0; i < 4; i++){
+  *ptr[i] = i; 
+}
+
+Deleting: 
+
+for(int i = 0; i < 4; i++){
+  delete ptr[i]; 
+  ptr[i] = nullptr; 
+}
+
+delete [ptr]; 
+ptr = nullptr; 
 
 */
 
   
   
 }
+
+
 
 //Swapping using pointers 
 //swap(&a, &b); 
